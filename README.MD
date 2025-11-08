@@ -9,3 +9,11 @@ Attempting to train a TRM on various games, most likely from google-deepmind's [
 5. Package to image
 6. Debug the whole shit
 7. Train it!
+
+## Alternative considerations:
+1. Move more towards computer vision and/or SLAM. Visual seems nice for me, since I respond strongly to it. 
+2. How about video analysis? 
+3. "Strategic AI": natural language -> symbols -Y symbolic reasoning engine -> LLM -> natural language
+4. Analyse movies and predict the plot. 
+5. "Acoustic AI" -> generate what, exactly?
+6. 

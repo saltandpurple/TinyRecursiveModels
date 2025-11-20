@@ -27,3 +27,11 @@ Tracked all of it on W&B. Since I had to look up what some of the params actuall
    High q_halt_accuracy means the model correctly realizes: "I haven't solved this Sudoku yet, I need to recurse more" or "I have solved it, I should stop."
 
 ![q_halt_accuracy.png](q_halt_accuracy.png)
+
+4. **accuracy (Cell-wise Accuracy)**:
+   This one tripped me up a little - it's the percentage of individual(!) empty cells filled correctly.
+   If a Sudoku has 50 empty cells and the model fills in 45 correctly, the accuracy is 90% (even though the Sudoku itself would be considered unsolved/wrong - therefore we need another metric here.
+
+![accuracy](accuracy.png)
+
+5. 

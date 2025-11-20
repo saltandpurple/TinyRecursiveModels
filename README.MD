@@ -3,11 +3,46 @@ Full paper here: https://arxiv.org/pdf/2510.04871
 
 ## Motivation
 I'm deeply interested in different architectural approaches instead of the scaling/scaffolding/data curation approaches the big AI labs usually focus on. The results of this paper actually impressed me quite a bit, since they manage to significantly outperform vastly bigger (and more expensive) LLMs, albeit in a narrow domain.
-So I decided to give it a try and (partially) reproduce the findings. When doing something like this, I found that learning stuff is basically guaranteed :)
+So I decided to give it a try and (partially) reproduce the findings. I found that doing stuff like this is a really fun way to learn :)
 
 ## Approach
-I went with the Sudoku-Hard, because it requires little compute while providing an interesting insight into the MLP-mixer vs self-attention mechanisms.
+I went with the Sudoku-Extreme, because it requires little compute while providing an interesting insight into the MLP-mixer vs self-attention mechanisms.
 I ran all of it on a single RTX A6000. 
+
+Preparation just like in the original:
+```
+# Dataset Sudoku-Extreme
+python dataset/build_sudoku_dataset.py --output-dir data/sudoku-extreme-1k-aug-1000  --subsample-size 1000 --num-aug 1000  # 1000 examples, 1000 augments
+pip install --upgrade pip wheel setuptools
+pip install --pre --upgrade torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu126 # install torch based on your cuda version
+pip install -r requirements.txt # install requirements
+pip install --no-cache-dir --no-build-isolation adam-atan2 
+wandb login YOUR-LOGIN
+```
+Actual training runs:
+```
+python pretrain.py \
+arch=trm \
+data_paths="[data/sudoku-extreme-1k-aug-1000]" \
+evaluators="[]" \
+epochs=50000 eval_interval=5000 \
+lr=1e-4 puzzle_emb_lr=1e-4 weight_decay=1.0 puzzle_emb_weight_decay=1.0 \
+arch.L_layers=2 \
+arch.H_cycles=3 arch.L_cycles=6 \
++run_name=${run_name} ema=True
+
+python pretrain.py \
+arch=trm \
+data_paths="[data/sudoku-extreme-1k-aug-1000]" \
+evaluators="[]" \
+epochs=50000 eval_interval=5000 \
+lr=1e-4 puzzle_emb_lr=1e-4 weight_decay=1.0 puzzle_emb_weight_decay=1.0 \
+arch.mlp_t=True arch.pos_encodings=none \
+arch.L_layers=2 \
+arch.H_cycles=3 arch.L_cycles=6 \
++run_name=${run_name} ema=True
+```
+
 
 ## Results
 Attention took 17h 47m, MLP 22h 39m. Both converged nicely without any hickups (which is quite rare out of the box for a research publication - solid job on Alexia's part).

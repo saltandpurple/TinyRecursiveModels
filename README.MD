@@ -30,8 +30,14 @@ Tracked all of it on W&B. Since I had to look up what some of the params actuall
 
 4. **accuracy (Cell-wise Accuracy)**:
    This one tripped me up a little - it's the percentage of individual(!) empty cells filled correctly.
-   If a Sudoku has 50 empty cells and the model fills in 45 correctly, the accuracy is 90% (even though the Sudoku itself would be considered unsolved/wrong - therefore we need another metric here.
+   If a Sudoku has 50 empty cells and the model fills in 45 correctly, the accuracy is 90% (even though the Sudoku-puzzle itself would be considered unsolved/wrong - therefore we need another metric for that). 
+   This metric is important, because we need to be able to measure the degree of correctness more finely than "oh we still didn't get a single Sudoku right". This allows us to train those intermediate steps between complete solutions.
 
 ![accuracy](accuracy.png)
 
-5. 
+5. exact_accuracy (Puzzle-wise Accuracy):
+   The percentage of entire puzzles solved perfectly (81/81 cells correct).
+   This is the "real" metric that matters for logic puzzles. If we get 1 cell wrong in Sudoku, the solution is invalid, as mentioned above.
+   A 85% exact_accuracy means 85 out of 100 puzzles were solved perfectly.
+
+![exact_accuracy](exact_accuracy.png)

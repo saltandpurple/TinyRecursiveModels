@@ -3,7 +3,7 @@ Full paper here: https://arxiv.org/pdf/2510.04871
 
 ## Motivation
 I'm deeply interested in different architectural approaches instead of the scaling/scaffolding/data curation approaches the big AI labs usually focus on. The results of this paper actually impressed me quite a bit, since they manage to significantly outperform vastly bigger (and more expensive) LLMs, albeit in a narrow domain.
-So I decided to give it a try and (partially) reproduce the findings. Learnings are basically guaranteed :)
+So I decided to give it a try and (partially) reproduce the findings. When doing something like this, I found that learning stuff is basically guaranteed :)
 
 ## Approach
 I went with the Sudoku-Hard, because it requires little compute while providing an interesting insight into the MLP-mixer vs self-attention mechanisms.
